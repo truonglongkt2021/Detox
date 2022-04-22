@@ -20,6 +20,7 @@ namespace Labixa.Controllers
         readonly IWebsiteAttributeService _websiteAttributeService;
         readonly IOrderService _orderService;
         readonly IMomoService _momoService;
+        readonly IOrderItemService _orderItemService;
         private string _accessKey;
         private string _endpoint;
         private string _partnerCode;
@@ -31,13 +32,15 @@ namespace Labixa.Controllers
         private string _storeId;
         private string _lang;
 
-        public ShopController(IProductCategoryService productCategoryService, IBlogService blogService, IProductService productService, IBlogCategoryService blogCategoryService, IWebsiteAttributeService websiteAttributeService, IMomoService momoService, IOrderService orderService)
+        public ShopController(IOrderItemService orderItemService ,IProductCategoryService productCategoryService, IBlogService blogService, IProductService productService, IBlogCategoryService blogCategoryService, IWebsiteAttributeService websiteAttributeService, IMomoService momoService, IOrderService orderService)
         {
             _productCategoryService = productCategoryService;
             _blogService = blogService;
             _productService = productService;
             _blogCategoryService = blogCategoryService;
             _websiteAttributeService = websiteAttributeService;
+            _orderService = orderService;
+            this._orderItemService = orderItemService;
             this._momoService = momoService;
             this._orderService = orderService;
             this._accessKey = ConfigurationManager.AppSettings["accessKey"];
@@ -352,29 +355,21 @@ namespace Labixa.Controllers
 
             }
 
+            foreach(var item in getCart)
+            {
+                var orderItem = new OrderItem();
+                orderItem.OrderId = ord.Id;
+                orderItem.ProductId = item.Id;
+                orderItem.Quantity = item.Stock.GetValueOrDefault();
+                orderItem.Price = item.Price;
+                _orderItemService.CreateOrderItem(orderItem);
+            }
 
-            //var _document = _productService.GetProductBySlug();
-
-            //if (_document != null)
-            //{
-            //    ord.OrderTotal = _document.Price;
-            //    ord.ProfileId = _document.Id;//id tai lieu
-            //    ord.DateCreated = DateTime.Now;
-            //    ord.Deleted = false;
-            //    ord.ProductName = _document.Name;
-            //    ord.Product_Slug = slug;
-            //    ord.Status = "Waiting";
-            //    ord.Note = _document.DescEng;
-            //    ord.RequestId = momorequest.requestId = Guid.NewGuid().ToString();//ma don hang
-            //    ord.Path_Download = _document.Tags;
-            //    ord = _orderService.CreateOrder(ord);
-
-            //}
 
             momorequest.orderId = ord.Id.ToString();
-            //momorequest.amount = _document.Price.ToString();
+            momorequest.amount = total;
             momorequest.partnerName = _partnerName;
-            //momorequest.orderInfo = _document.Name;
+            momorequest.orderInfo = phone;
             momorequest.ipnUrl = _ipnUrl;
             momorequest.lang = _lang;
             momorequest.storeId = _storeId;
@@ -409,7 +404,7 @@ namespace Labixa.Controllers
                     order.Status = "Done";
                     order.transId = transId;
                     _orderService.EditOrder(order);
-                    return Redirect("/tai-lieu/" + order.Product_Slug + "?tokenid=" + order.signature);
+                    return RedirectToRoute("TrangChu");
                 }
             }
             return View();
@@ -428,7 +423,8 @@ namespace Labixa.Controllers
                     return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, order.Note);
                 }
 
-                return Redirect("/tai-lieu/" + order.Product_Slug);
+                //return Redirect("/tai-lieu/" + order.Product_Slug);
+                return RedirectToRoute("TrangChu");
             }
             catch (Exception)
             {
