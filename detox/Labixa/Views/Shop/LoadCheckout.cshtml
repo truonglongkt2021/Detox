@@ -1,0 +1,111 @@
+﻿@using Outsourcing.Data.Models
+@using Labixa.ViewModels
+@model List<Product>
+@{
+    ShopFormModel shopFormModel = ViewBag.shopFormModel;
+    int total_order = 0;
+}
+
+@if (Model.Count == 0)
+{
+    <p>Không có dữ liệu</p>
+}
+else
+{
+
+    <div class="row">
+        <div class="col-12">
+            <!-- Shopping Summery -->
+            <table class="table shopping-summery">
+                <thead>
+                    <tr class="main-hading">
+                        <th>Sản phẩm</th>
+                        <th>Tên</th>
+                        <th class="text-center">Giá</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Tổng giá</th>
+                        <th class="text-center"><i class="ti-trash remove-icon"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+
+                        <tr>
+                            <td class="image" data-title="No"><img src="@item.ProductImage" alt="#"></td>
+                            <td class="product-des" data-title="Description">
+                                <p class="product-name"><a>@item.Name</a></p>
+                                <p class="product-des">@item.Description</p>
+                            </td>
+                            <td class="price" data-title="Price"><span>@item.Price.ToString("#,##0") đ</span></td>
+                            <td class="qty" data-title="Qty">
+                                <!-- Input Order -->
+                                <div class="input-group">
+                                    <div class="button minus">
+                                        <button type="button" class="btn btn-primary btn-number" onclick="UpdateItem(@item.Id,'-')" data-type="minus" data-field="quant[1]">
+                                            <i class="ti-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" name="quant[1]" readonly class="input-number" data-min="1" data-max="100" value="@item.Stock">
+                                    <div class="button plus">
+                                        <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
+                                            <i class="ti-plus" onclick="UpdateItem(@item.Id,'+')"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!--/ End Input Order -->
+                            </td>
+                            @{
+                                int? sum = item.Price * item.Stock;
+                                total_order += (int)sum;
+                            }
+                            <td class="total-amount" data-title="Total"><span>@(((int)sum).ToString("#,##0"))</span></td>
+                            <td class="action" data-title="Remove"><a onclick="DeleteItem(@item.Id)"><i class="ti-trash remove-icon"></i></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!--/ End Shopping Summery -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <!-- Total Amount -->
+            <div class="total-amount">
+                <div class="row">
+                    <div class="col-lg-8 col-md-5 col-12">
+                        <div class="left">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-7 col-12">
+                        <div class="right">
+                            <form action="/Shop/ThanhToanMomo" method="POST">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Số điện thoại</label>
+                                    <input type="tel" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone" placeholder="Số điện thoại" required>
+                             
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Địa chỉ</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" name="address" placeholder="Địa chỉ" required>
+                                </div>
+                                <input type="text" name="total" value="@total_order" hidden/>
+                                <ul>
+                                    <li class="last">Tổng đơn hàng<span>@total_order.ToString("#,##0") đ</span></li>
+                                </ul>
+                                <div class="button5">
+                                    <button type="submit" class="btn">Thanh toán</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ End Total Amount -->
+        </div>
+    </div>
+}
+
+
