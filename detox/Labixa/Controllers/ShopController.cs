@@ -381,6 +381,7 @@ namespace Labixa.Controllers
             momorequest.storeId = _storeId;
             var url = _momoService.PurchaseMomo(momorequest, _endpoint, _accessKey, _serectkey);
             ViewBag.url = url;
+            Session.Clear();
             return Redirect(url);
         }
         public ActionResult RedirectMomo(string partnerCode, string orderId, string requestId, string amount, string orderInfo, string orderType, string transId, string resultCode, string message,
