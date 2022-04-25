@@ -65,10 +65,9 @@
             convertPrice = convertPrice.replace(".", ",");
             document.getElementById('totalOrder').innerHTML = convertPrice + ' đ';
 
-            /*document.getElementById('totalOrder').innerHTML = hiddenTotalOrder;*/
         }
         else {
-            if (quant >= 2) {
+            if (quant > 1) {
                 quant--;
                 //Cập nhập tổng tiền order
                 hiddenTotalOrder = parseInt(hiddenTotalOrder) - parseInt(price);
@@ -85,7 +84,7 @@
             }
         }
         document.getElementById('quant_' + id).value = quant;
-        //End
+      
 
         //Cập nhập tổng tiền sản phẩm
         var total_price = parseInt(quant) * parseInt(price);
@@ -93,9 +92,9 @@
             style: 'currency',
             currency: 'VND'
         }).format(total_price);
-        convertPrice2 = convertPrice.replace(" ₫", " ");
-        convertPrice2 = convertPrice.replace(".", ",");
-        document.getElementById('totalPrice').innerHTML = convertPrice + ' đ';
+        convertPrice2 = convertPrice2.replace(" ₫", " ");
+        convertPrice2 = convertPrice2.replace(".", ",");
+        document.getElementById('totalPrice_' + id).innerHTML = convertPrice2 + ' đ';
 
 
         $.ajax({

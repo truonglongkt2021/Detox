@@ -34,7 +34,8 @@ namespace Labixa
             routes.MapRoute("TimKiemBaiViet", "tim-kiem-bai-viet", new { controller = "Shop", action = "SearchBlog", slug = UrlParameter.Optional });
             routes.MapRoute("MuaHang", "mua-hang", new { controller = "Shop", action = "Buy", slug = UrlParameter.Optional });
             routes.MapRoute("ThanhToan", "thanh-toan", new { controller = "Shop", action = "Checkout", slug = UrlParameter.Optional });
-
+            routes.MapRoute("ThanhToanMomo", "thanh-toan-momo", new { controller = "Shop", action = "ThanhToanMomo", slug = UrlParameter.Optional });
+            routes.MapRoute("ThanhToanThuong", "thanh-toan-thuong", new { controller = "Shop", action = "ThanhToanTrucTuyen", slug = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "Default",

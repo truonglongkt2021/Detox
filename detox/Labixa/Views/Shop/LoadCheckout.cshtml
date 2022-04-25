@@ -6,13 +6,8 @@
     int total_order = 0;
 }
 
-@if (Model.Count == 0)
+@if (Model.Count > 0 )
 {
-    <p style="text-align:center">Không có sản phẩm trong giỏ hàng</p>
-}
-else
-{
-
     <div class="row">
         <div class="col-12">
             <!-- Shopping Summery -->
@@ -33,13 +28,13 @@ else
 
 
                         <tr>
-                            <td class="image" data-title="No"><img src="@item.ProductImage" alt="#"></td>
-                            <td class="product-des" data-title="Description">
+                            <td class="image" data-title="Sản phẩm" style="text-align:center"><img src="@item.ProductImage" alt="#"></td>
+                            <td class="product-des" data-title="Tên" style="text-align:center">
                                 <p class="product-name"><a>@item.Name</a></p>
-                                <p class="product-des">@item.Description</p>
+                                @*<p class="product-des">@item.Description</p>*@
                             </td>
-                            <td class="price" data-title="Price"><span>@item.Price.ToString("#,##0") đ</span></td>
-                            <td class="qty" data-title="Qty">
+                            <td class="Giá" data-title="Price"><span>@item.Price.ToString("#,##0") đ</span></td>
+                            <td class="qty" data-title="Số lượng" style="text-align:center">
                                 <!-- Input Order -->
                                 <div class="input-group">
                                     <div class="button minus">
@@ -60,8 +55,8 @@ else
                                 int? sum = item.Price * item.Stock;
                                 total_order += (int)sum;
                             }
-                            <td class="total-amount" data-title="Total"><span id="totalPrice">@(((int)sum).ToString("#,##0"))</span></td>
-                            <td class="action" data-title="Remove"><a onclick="DeleteItem(@item.Id)"><i class="ti-trash remove-icon"></i></a></td>
+                            <td class="total-amount" data-title="Tổng tiền"><span id="totalPrice_@item.Id">@(((int)sum).ToString("#,##0"))</span></td>
+                            <td class="action" data-title="Xóa"><a onclick="DeleteItem(@item.Id)"><i class="ti-trash remove-icon"></i></a></td>
                         </tr>
                     }
                 </tbody>
@@ -81,22 +76,30 @@ else
                     </div>
                     <div class="col-lg-4 col-md-7 col-12">
                         <div class="right">
-                            <form action="/Shop/ThanhToanMomo" method="POST">
+                            <form action="" method="POST" id="myForm">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Số điện thoại</label>
-                                    <input type="tel" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone" placeholder="Số điện thoại" required>
-                             
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Email" required>
+
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Địa chỉ</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" name="address" placeholder="Địa chỉ" required>
+                                    <label for="exampleInputPhone">Số điện thoại</label>
+                                    <input type="tel" class="form-control" id="exampleInputPhone" aria-describedby="emailHelp" name="phone" placeholder="Số điện thoại" required>
+
                                 </div>
-                                <input type="text" name="total" id="hiddenTotalOrder" value="@total_order" hidden/>
+                                <div class="form-group">
+                                    <label for="exampleInputAddress1">Địa chỉ</label>
+                                    <input type="text" class="form-control" id="exampleInputAddress1" name="address" placeholder="Địa chỉ" required>
+                                </div>
+                                <input type="text" name="total" id="hiddenTotalOrder" value="@total_order" hidden />
                                 <ul>
                                     <li class="last">Tổng đơn hàng<span id="totalOrder">@total_order.ToString("#,##0") đ</span></li>
                                 </ul>
                                 <div class="button5">
-                                    <button type="submit" class="btn">Thanh toán</button>
+                                    <button type="submit" class="btn" onclick="ThanhToan('thanh-toan-thuong')">Thanh toán</button>
+                                </div>
+                                <div class="button5">
+                                    <button type="submit" class="btn" onclick="ThanhToan('thanh-toan-momo')">Thanh toán Momo</button>
                                 </div>
                             </form>
                         </div>
@@ -106,6 +109,27 @@ else
             <!--/ End Total Amount -->
         </div>
     </div>
+
+    <script type="text/javascript">
+        function ThanhToan(url) {
+            var check_mail = document.getElementById('exampleInputEmail1');
+            var check_phone = document.getElementById('exampleInputPhone');
+            var check_address = document.getElementById('exampleInputAddress1');
+
+            if (check_mail.checkValidity() == true && check_phone.checkValidity() == true && check_address.checkValidity() == true) {
+                document.getElementById('myForm').action = url;
+                document.getElementById('myForm').submit();
+            }
+
+
+        }
+    </script>
+    
+}
+else
+{
+
+    <p style="text-align:center">Không có sản phẩm trong giỏ hàng</p>
 }
 
 

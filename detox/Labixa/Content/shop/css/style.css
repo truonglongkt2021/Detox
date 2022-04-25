@@ -2995,7 +2995,7 @@ Version:1.0
 }
 .shopping-summery tbody .price span{}
 .shopping-cart tbody .qty .input-group {
-	width: 175px;
+	width: 130px;
 	display: inline-block;
 }
 .shopping-cart .qty .button {
@@ -3134,7 +3134,10 @@ Version:1.0
 	transform:scale(1);
 }
 .shopping-cart .total-amount .right {
-	padding-left: 100px;
+	padding-left: 30px;
+}
+.shopping-cart .total-amount .right input{
+	padding: 10px;
 }
 .shopping-cart .total-amount .right ul{
 	

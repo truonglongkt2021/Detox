@@ -2028,6 +2028,7 @@
     <Content Include="Views\Shop\LoadCart.cshtml" />
     <Content Include="Views\Shop\Checkout.cshtml" />
     <Content Include="Views\Shop\LoadCheckout.cshtml" />
+    <Content Include="Views\Shop\ThanhToanTrucTuyen.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2043,7 +2044,6 @@
     <Folder Include="Content\fz3-14199091201320\" />
     <Folder Include="Images\uploaded\.tmb_uploaded\" />
     <Folder Include="Views\CallBack\" />
-    <Folder Include="Views\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
