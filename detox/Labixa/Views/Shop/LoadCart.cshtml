@@ -11,27 +11,33 @@
 }
 <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">@count</span></a>
 <!-- Shopping Item -->
-@if (Model != null && Model.Count() > 0)
-{
-    <div class="shopping-item">
 
-        <div class="dropdown-cart-header">
-            <span>@count sản phẩm</span>
-            <a href="#">Xem giỏ hàng</a>
-        </div>
-        <ul class="shopping-list">
-            @foreach (var item in Model)
-            {
-                <li>
-                    <a class="remove" title="Remove this item" onclick="Delete(@item.Id)"><i class="fa fa-remove"></i></a>
-                    <a class="cart-img" href="#"><img src="@item.ProductImage" alt="#"></a>
-                    <h4><a href="#">@item.Name</a></h4>
-                    <p class="quantity">@item.Stock x - <span class="amount">@item.Price.ToString("#,##0") đ</span></p>
-                </li>
+<div class="shopping-item">
 
-                sum += item.Stock * item.Price;
-            }
-        </ul>
+    <div class="dropdown-cart-header">
+        <span>@count sản phẩm</span>
+        <a href="@Url.RouteUrl("ThanhToan")">Xem giỏ hàng</a>
+    </div>
+        @if (Model != null && Model.Count() > 0)
+        {
+            <ul class="shopping-list">
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <a class="remove" title="Remove this item" onclick="Delete(@item.Id)"><i class="fa fa-remove"></i></a>
+                        <a class="cart-img" href="#"><img src="@item.ProductImage" alt="#"></a>
+                        <h4><a href="#">@item.Name</a></h4>
+                        <p class="quantity">@item.Stock x - <span class="amount">@item.Price.ToString("#,##0") đ</span></p>
+                    </li>
+
+                    sum += item.Stock * item.Price;
+                }
+            </ul>
+        }
+        else
+        { 
+            <p style="text-align:center">Không có sản phẩm</p>
+        }
         <div class="bottom">
             <div class="total">
                 <span>Total</span>
@@ -41,5 +47,5 @@
         </div>
     </div>
     <!--/ End Shopping Item -->
-}
+
 

@@ -563,6 +563,25 @@
             });
         }
       
+        function DeleteItem(id) {
+            $.ajax({
+                type: "POST",
+                url: '/Shop/DeleteItemCart',
+                data: JSON.stringify({
+                    "id": id,
+                }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    load();
+                    loadCheckout();
+                    alert(data.Message);
+                },
+                error: function () {
+                    alert("Xóa sản phẩm thất bại");
+                },
+            });
+        }
 
         $(document).ready(function () {
             //$.ajax({

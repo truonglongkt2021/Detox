@@ -46,7 +46,58 @@
         });
     }
 
-    function UpdateItem(id, val) {
+    function UpdateItem(id, val, price) {
+        //Cập nhập số lượng sau khi chọn tăng giảm
+        var quant = document.getElementById('quant_' + id).value;
+        var hiddenTotalOrder = document.getElementById('hiddenTotalOrder').value;
+        if (val == "+") {
+            quant++;
+            //Cập nhập tổng tiền order
+            hiddenTotalOrder = parseInt(hiddenTotalOrder) + parseInt(price);
+            document.getElementById('hiddenTotalOrder').value = hiddenTotalOrder;
+
+            convertPrice = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(hiddenTotalOrder);
+
+            convertPrice = convertPrice.replace(" ₫", " ");
+            convertPrice = convertPrice.replace(".", ",");
+            document.getElementById('totalOrder').innerHTML = convertPrice + ' đ';
+
+            /*document.getElementById('totalOrder').innerHTML = hiddenTotalOrder;*/
+        }
+        else {
+            if (quant >= 2) {
+                quant--;
+                //Cập nhập tổng tiền order
+                hiddenTotalOrder = parseInt(hiddenTotalOrder) - parseInt(price);
+                document.getElementById('hiddenTotalOrder').value = hiddenTotalOrder;
+               
+                convertPrice = new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                }).format(hiddenTotalOrder);
+
+                convertPrice = convertPrice.replace(" ₫", " ");
+                convertPrice = convertPrice.replace(".", ",");
+                document.getElementById('totalOrder').innerHTML = convertPrice + ' đ';
+            }
+        }
+        document.getElementById('quant_' + id).value = quant;
+        //End
+
+        //Cập nhập tổng tiền sản phẩm
+        var total_price = parseInt(quant) * parseInt(price);
+        convertPrice2 = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(total_price);
+        convertPrice2 = convertPrice.replace(" ₫", " ");
+        convertPrice2 = convertPrice.replace(".", ",");
+        document.getElementById('totalPrice').innerHTML = convertPrice + ' đ';
+
+
         $.ajax({
             type: "POST",
             url: '/Shop/UpdateItemCart',
@@ -57,7 +108,7 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                loadCheckout();
+                
             },
             error: function () {
                 alert("Cập nhập sản phẩm thất bại");
@@ -65,24 +116,7 @@
         });
     }
 
-    function DeleteItem(id) {
-        $.ajax({
-            type: "POST",
-            url: '/Shop/DeleteItemCart',
-            data: JSON.stringify({
-                "id": id,
-            }),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                loadCheckout();
-                alert(data.Message);
-            },
-            error: function () {
-                alert("Xóa sản phẩm thất bại");
-            },
-        });
-    }
+
 
     window.onload = function () {
         loadCheckout();

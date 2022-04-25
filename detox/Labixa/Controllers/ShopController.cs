@@ -31,6 +31,7 @@ namespace Labixa.Controllers
         private string _partnerName;
         private string _storeId;
         private string _lang;
+        private string _refixOrder;
 
         public ShopController(IOrderItemService orderItemService ,IProductCategoryService productCategoryService, IBlogService blogService, IProductService productService, IBlogCategoryService blogCategoryService, IWebsiteAttributeService websiteAttributeService, IMomoService momoService, IOrderService orderService)
         {
@@ -53,6 +54,7 @@ namespace Labixa.Controllers
             this._partnerName = ConfigurationManager.AppSettings["partnerName"];
             this._storeId = ConfigurationManager.AppSettings["storeId"];
             this._lang = ConfigurationManager.AppSettings["lang"];
+            this._refixOrder = ConfigurationManager.AppSettings["refixOrder"];
         }
         //
         // GET: /Shop/
@@ -366,7 +368,7 @@ namespace Labixa.Controllers
             }
 
 
-            momorequest.orderId = ord.Id.ToString();
+            momorequest.orderId = _refixOrder + ord.Id.ToString();
             momorequest.amount = total;
             momorequest.partnerName = _partnerName;
             momorequest.orderInfo = phone;
@@ -381,7 +383,7 @@ namespace Labixa.Controllers
             momorequest.storeId = _storeId;
             var url = _momoService.PurchaseMomo(momorequest, _endpoint, _accessKey, _serectkey);
             ViewBag.url = url;
-            Session.Clear();
+            
             return Redirect(url);
         }
         public ActionResult RedirectMomo(string partnerCode, string orderId, string requestId, string amount, string orderInfo, string orderType, string transId, string resultCode, string message,
@@ -405,6 +407,7 @@ namespace Labixa.Controllers
                     order.Status = "Done";
                     order.transId = transId;
                     _orderService.EditOrder(order);
+                    Session["ShoppingCart"] = null;
                     return RedirectToRoute("TrangChu");
                 }
             }
