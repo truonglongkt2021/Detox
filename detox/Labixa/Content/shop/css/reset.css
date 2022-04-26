@@ -1052,36 +1052,36 @@ object {
 }
 .modal-dialog {
   margin: 12% auto 8%;
-  max-width: 1358px;
-  width: 1358px;
+  max-width: 500px;
+  width: 500px;
 }
 
 @media only screen and (min-width: 1366px) and (max-width: 1600px) {
-  .modal-dialog {
-    width: 1145px;
-    max-width: 1145px;
-  }
+	.modal-dialog {
+		max-width: 500px;
+		width: 500px;
+	}
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1365px) {
-  .modal-dialog {
-    width: 1145px;
-    max-width: 1145px;
-  }
+	.modal-dialog {
+		max-width: 500px;
+		width: 500px;
+	}
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .modal-dialog {
-    width: 960px;
-    max-width: 960px;
-  }
+	.modal-dialog {
+		max-width: 500px;
+		width: 500px;
+	}
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .modal-dialog {
-    width: 720px;
-    max-width: 720px;
-  }
+	.modal-dialog {
+		max-width: 500px;
+		width: 500px;
+	}
 }
 
 @media only screen and (max-width: 767px) {
@@ -1096,14 +1096,16 @@ object {
   border-radius: 0;
 }
 
-.modal-dialog .modal-content .modal-header {
-	border: none;
-	padding: 0;
-	right: 10px;
-	top: 10px;
-	position: absolute;
-	z-index: 9999;
-}
+	.modal-dialog .modal-content .modal-header {
+		border: none;
+		padding: 20px;
+		/* right: 10px; */
+		/* top: 10px; */
+		position: absolute;
+		z-index: 9999;
+		width: 100%;
+		border-bottom: 1px solid #e9ecef;
+	}
 
 @media only screen and (max-width: 767px) {
   .modal-dialog .modal-content .modal-header {
@@ -1145,10 +1147,11 @@ object {
   background:#F7941D;
 }
 .modal-dialog .modal-content .modal-body {
-	padding: 0px;
+	padding-top: 110px;
+	padding-left: 20px;
 	overflow-y: auto;
-	max-height: 510px;
-	height: 700px;
+	max-height: 180px;
+	height: 180px;
 }
 .quickview-content {
 	padding: 40px 40px;

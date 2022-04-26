@@ -341,7 +341,12 @@
     <Compile Include="Controllers\CallBackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\ShopAboutController.cs" />
+    <Compile Include="Controllers\ShopContactController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\ShopHelpController.cs" />
+    <Compile Include="Controllers\ShopNewsController.cs" />
+    <Compile Include="Controllers\ShopProductController.cs" />
     <Compile Include="Controllers\TourController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2015,20 +2020,19 @@
     <Content Include="Views\Home\_RightMenuHelpPartial.cshtml" />
     <Content Include="Views\Home\HoTro.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
-    <Content Include="Views\Shop\Product.cshtml" />
-    <Content Include="Views\Shop\News.cshtml" />
-    <Content Include="Views\Shop\_RightMenuPartial.cshtml" />
     <Content Include="Views\Home\RedirectMomo.cshtml" />
-    <Content Include="Views\Shop\NewsDetail.cshtml" />
-    <Content Include="Views\Shop\Help.cshtml" />
-    <Content Include="Views\Shop\Contact.cshtml" />
-    <Content Include="Views\Shop\AboutUs.cshtml" />
-    <Content Include="Views\Shop\Search.cshtml" />
-    <Content Include="Views\Shop\SearchBlog.cshtml" />
     <Content Include="Views\Shop\LoadCart.cshtml" />
-    <Content Include="Views\Shop\Checkout.cshtml" />
     <Content Include="Views\Shop\LoadCheckout.cshtml" />
-    <Content Include="Views\Shop\ThanhToanTrucTuyen.cshtml" />
+    <Content Include="Views\ShopProduct\Product.cshtml" />
+    <Content Include="Views\ShopNews\NewsDetail.cshtml" />
+    <Content Include="Views\ShopNews\News.cshtml" />
+    <Content Include="Views\ShopHelp\Help.cshtml" />
+    <Content Include="Views\ShopAbout\AboutUs.cshtml" />
+    <Content Include="Views\ShopContact\Contact.cshtml" />
+    <Content Include="Views\ShopProduct\Checkout.cshtml" />
+    <Content Include="Views\ShopProduct\Search.cshtml" />
+    <Content Include="Views\ShopNews\_RightMenuPartial.cshtml" />
+    <Content Include="Views\ShopProduct\ThanhToanTrucTuyen.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

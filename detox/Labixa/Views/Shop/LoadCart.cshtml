@@ -24,7 +24,7 @@
                 @foreach (var item in Model)
                 {
                     <li>
-                        <a class="remove" title="Remove this item" onclick="Delete(@item.Id)"><i class="fa fa-remove"></i></a>
+                        <a class="remove" title="Remove this item" onclick="Delete(@item.Id)"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-remove"></i></a>
                         <a class="cart-img" href="#"><img src="@item.ProductImage" alt="#"></a>
                         <h4><a href="#">@item.Name</a></h4>
                         <p class="quantity">@item.Stock x - <span class="amount">@item.Price.ToString("#,##0") đ</span></p>

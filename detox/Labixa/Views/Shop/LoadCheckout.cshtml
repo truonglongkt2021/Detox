@@ -6,7 +6,7 @@
     int total_order = 0;
 }
 
-@if (Model.Count > 0 )
+@if (Model != null && Model.Count > 0 )
 {
     <div class="row">
         <div class="col-12">
@@ -56,7 +56,7 @@
                                 total_order += (int)sum;
                             }
                             <td class="total-amount" data-title="Tổng tiền"><span id="totalPrice_@item.Id">@(((int)sum).ToString("#,##0"))</span></td>
-                            <td class="action" data-title="Xóa"><a onclick="DeleteItem(@item.Id)"><i class="ti-trash remove-icon"></i></a></td>
+                            <td class="action" data-title="Xóa"><a onclick="DeleteItem(@item.Id)"  data-toggle="modal" data-target="#exampleModal"><i class="ti-trash remove-icon"></i></a></td>
                         </tr>
                     }
                 </tbody>
@@ -96,7 +96,7 @@
                                     <li class="last">Tổng đơn hàng<span id="totalOrder">@total_order.ToString("#,##0") đ</span></li>
                                 </ul>
                                 <div class="button5">
-                                    <button type="submit" class="btn" onclick="ThanhToan('thanh-toan-thuong')">Thanh toán</button>
+                                    <button type="submit" class="btn" onclick="ThanhToan('thanh-toan-thuong')">Đặt hàng</button>
                                 </div>
                                 <div class="button5">
                                     <button type="submit" class="btn" onclick="ThanhToan('thanh-toan-momo')">Thanh toán Momo</button>

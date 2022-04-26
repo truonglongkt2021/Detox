@@ -149,31 +149,31 @@
         <!-- Topbar -->
         <!--<div class="topbar">
             <div class="container">-->
-                <!--<div class="row">
-                    <div class="col-lg-5 col-md-12 col-12">-->
-                        <!-- Top Left -->
-                        <!--<div class="top-left">
-                            <ul class="list-main">
-                                <li><i class="ti-headphone-alt"></i>  (+84) 090 671 0739</li>
-                              
-                            </ul>
-                        </div>-->
-                        <!--/ End Top Left -->
-                    <!--</div>-->
-                    <!-- <div class="col-lg-7 col-md-12 col-12">
+        <!--<div class="row">
+            <div class="col-lg-5 col-md-12 col-12">-->
+        <!-- Top Left -->
+        <!--<div class="top-left">
+            <ul class="list-main">
+                <li><i class="ti-headphone-alt"></i>  (+84) 090 671 0739</li>
 
-                        <div class="right-content">
-                            <ul class="list-main">
-                                <li><i class="ti-location-pin"></i> Store location</li>
-                                <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-                                <li><i class="ti-user"></i> <a href="#">My account</a></li>
-                                <li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
-                            </ul>
-                        </div>
+            </ul>
+        </div>-->
+        <!--/ End Top Left -->
+        <!--</div>-->
+        <!-- <div class="col-lg-7 col-md-12 col-12">
 
-                    </div> -->
-                <!--</div>-->
-            <!--</div>
+            <div class="right-content">
+                <ul class="list-main">
+                    <li><i class="ti-location-pin"></i> Store location</li>
+                    <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
+                    <li><i class="ti-user"></i> <a href="#">My account</a></li>
+                    <li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
+                </ul>
+            </div>
+
+        </div> -->
+        <!--</div>-->
+        <!--</div>
         </div>-->
         <!-- End Topbar -->
         <div class="middle-inner">
@@ -183,7 +183,7 @@
                         <!-- Logo -->
                         <div class="logo">
                             <a href="@Url.RouteUrl("TrangChu")"><img style="max-width: 50%; max-height: 100px" src="~/Content/shop/images/cropped-gems-4-removebg-preview.png" alt="logo"></a>
-                           
+
                         </div>
                         <!--/ End Logo -->
                         <!-- Search Form -->
@@ -216,11 +216,11 @@
                         <div class="right-bar">
                             <!-- Search Form -->
                             @*<div class="sinlge-bar">
-                                <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                            </div>
-                            <div class="sinlge-bar">
-                                <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                            </div>*@
+                                    <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="sinlge-bar">
+                                    <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                                </div>*@
                             <div class="sinlge-bar shopping" id="cart">
                                 <!--<a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>-->
                                 <!-- Shopping Item -->
@@ -263,7 +263,7 @@
             <div class="container">
                 <div class="cat-nav-head">
                     <div class="row">
-                       
+
                         <div class="col-lg-9 col-12">
                             <div class="menu-area">
                                 <!-- Main Menu -->
@@ -286,17 +286,18 @@
                                                     <li>
                                                         <a href="#">Chính sách<i class="ti-angle-down"></i></a>
                                                         <ul class="dropdown">
-                                                            @foreach (var item in shopFormModel.blogsHelper) { 
+                                                            @foreach (var item in shopFormModel.blogsHelper)
+                                                            {
                                                                 <li><a href="@Url.RouteUrl("ChinhSach", new { slug = item.Slug })">@item.Description</a></li>
                                                             }
                                                             @*<li><a href="#">Chính sách cho ctv</a></li>
-                                                            <li><a href="#">Chính sách đổi trả</a></li>
-                                                            <li><a href="#">Chính sách bảo hành</a></li>
-                                                            <li><a href="#">Chính sách giao hàng</a></li>
-                                                            <li><a href="#">Chính sách xử lý khiếu nại</a></li>
-                                                            <li><a href="#">Chính sách vận chuyển</a></li>
-                                                            <li><a href="#">Chính sách bảo mật thông tin</a></li>
-                                                            <li><a href="#">Hướng dẫn mua hàng và thanh toán</a></li>*@
+                                                                <li><a href="#">Chính sách đổi trả</a></li>
+                                                                <li><a href="#">Chính sách bảo hành</a></li>
+                                                                <li><a href="#">Chính sách giao hàng</a></li>
+                                                                <li><a href="#">Chính sách xử lý khiếu nại</a></li>
+                                                                <li><a href="#">Chính sách vận chuyển</a></li>
+                                                                <li><a href="#">Chính sách bảo mật thông tin</a></li>
+                                                                <li><a href="#">Hướng dẫn mua hàng và thanh toán</a></li>*@
                                                         </ul>
                                                     </li>
                                                 }
@@ -343,29 +344,29 @@
     </section>
     <!-- End Shop Newsletter -->
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row no-gutters">
-                        <div class="col-lg-6 offset-lg-3 col-12">
-                            <h4 style="margin-top:100px;font-size:14px; font-weight:500; color:#F7941D; display:block; margin-bottom:5px;">Eshop Free Lite</h4>
-                            <h3 style="font-size:30px;color:#333;">
-                                Currently You are using free lite Version of Eshop.
-                            </h3>
-                            <p style="display:block; margin-top:20px; color:#888; font-size:14px; font-weight:400;">Please, purchase full version of the template to get all pages, features and commercial license</p>
-                            <div class="button" style="margin-top:30px;">
-                                <a href="https://wpthemesgrid.com/downloads/eshop-ecommerce-html5-template/" target="_blank" class="btn" style="color:#fff;">Buy Now!</a>
+    @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row no-gutters">
+                            <div class="col-lg-6 offset-lg-3 col-12">
+                                <h4 style="margin-top:100px;font-size:14px; font-weight:500; color:#F7941D; display:block; margin-bottom:5px;">Gems - Tek</h4>
+                                <h3 style="font-size:30px;color:#333;">
+                                    Currently You are using free lite Version of Eshop.
+                                </h3>
+                                <p style="display:block; margin-top:20px; color:#888; font-size:14px; font-weight:400;">Please, purchase full version of the template to get all pages, features and commercial license</p>
+                                <div class="button" style="margin-top:30px;">
+                                    <a data-dismiss="modal" aria-label="Close" class="btn" style="color:#fff;">Đóng!</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>*@
     <!-- Modal end -->
     <!-- Start Footer Area -->
     <footer class="footer">
@@ -410,17 +411,17 @@
                             <div class="single-footer links">
                                 <h4>Chính Sách</h4>
                                 <ul>
-                                    @foreach(var item in shopFormModel.blogsHelper)
-                                    { 
+                                    @foreach (var item in shopFormModel.blogsHelper)
+                                    {
                                         <li><a href="@Url.RouteUrl("ChinhSach", new { slug = item.Slug })">@item.Title</a></li>
                                     }
                                     @*<li><a href="#">Liên hệ</a></li>
-                                    <li><a href="#">Chính sách bảo hành</a></li>
-                                    <li><a href="#">Chính sách cho cộng tác viên</a></li>
-                                    <li><a href="#">Chính sách đổi trả</a></li>
-                                    <li><a href="#">Chính sách xử lý khiếu nại</a></li>
-                                    <li><a href="#">Chính sách vận chuyển</a></li>
-                                    <li><a href="#">Chính sách bảo mật thông tin</a></li>*@
+                                        <li><a href="#">Chính sách bảo hành</a></li>
+                                        <li><a href="#">Chính sách cho cộng tác viên</a></li>
+                                        <li><a href="#">Chính sách đổi trả</a></li>
+                                        <li><a href="#">Chính sách xử lý khiếu nại</a></li>
+                                        <li><a href="#">Chính sách vận chuyển</a></li>
+                                        <li><a href="#">Chính sách bảo mật thông tin</a></li>*@
                                 </ul>
                             </div>
                             <!-- End Single Widget -->
@@ -430,24 +431,24 @@
                     <!--<div class="col-lg-3 col-md-6 col-12">-->
                     <!-- Single Widget -->
                     <!--<div class="single-footer social">
-        <h4>Get In Tuch</h4>-->
+                    <h4>Get In Tuch</h4>-->
                     <!-- Single Widget -->
                     <!--<div class="contact">
-        <ul>
-            <li>NO. 342 - London Oxford Street.</li>
-            <li>012 United Kingdom.</li>
-            <li>info@eshop.com</li>
-            <li>+032 3456 7890</li>
-        </ul>
-    </div>-->
+                        <ul>
+                            <li>NO. 342 - London Oxford Street.</li>
+                            <li>012 United Kingdom.</li>
+                            <li>info@eshop.com</li>
+                            <li>+032 3456 7890</li>
+                        </ul>
+                    </div>-->
                     <!-- End Single Widget -->
                     <!--<ul>
-            <li><a href="#"><i class="ti-facebook"></i></a></li>
-            <li><a href="#"><i class="ti-twitter"></i></a></li>
-            <li><a href="#"><i class="ti-flickr"></i></a></li>
-            <li><a href="#"><i class="ti-instagram"></i></a></li>
-        </ul>
-    </div>-->
+                            <li><a href="#"><i class="ti-facebook"></i></a></li>
+                            <li><a href="#"><i class="ti-twitter"></i></a></li>
+                            <li><a href="#"><i class="ti-flickr"></i></a></li>
+                            <li><a href="#"><i class="ti-instagram"></i></a></li>
+                        </ul>
+                    </div>-->
                     <!-- End Single Widget -->
                     <!--</div>-->
                 </div>
@@ -459,15 +460,36 @@
                 <div class="inner">
                     <div class="row">
                         @*<div class="col-lg-6 col-12">
-                            <div class="left">
-                                <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
-                            </div>
-                        </div>*@
+                                <div class="left">
+                                    <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
+                                </div>
+                            </div>*@
                         @*<div class="col-lg-6 col-12">
-                            <div class="right">
-                                <img src="images/payments.png" alt="#">
-                            </div>
-                        </div>*@
+                                <div class="right">
+                                    <img src="images/payments.png" alt="#">
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="notification" style="font-size:18px"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+
                     </div>
                 </div>
             </div>
@@ -507,6 +529,8 @@
     <!-- Active JS -->
     <script src="~/Content/shop/js/active.js"></script>
 
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
         function load() {
             $.ajax({
@@ -526,8 +550,8 @@
 
             $.ajax({
                 type: "POST",
-                url: '/Shop/Buy',
-               
+                url: '/ShopProduct/Buy',
+
                 data: JSON.stringify({
                     "id": id,
                 }),
@@ -535,8 +559,9 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     /*$('#cart').html(data.cart);*/
+                    document.getElementById('notification').innerHTML = "Đã thêm sản phẩm vào giỏ hàng";
                     load();
-                    alert(data.Message);
+
                 },
                 error: function () {
                     alert("Thêm giỏ hàng thất bại");
@@ -555,14 +580,14 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     load();
-                    alert(data.Message);
+                    document.getElementById('notification').innerHTML = "Đã xóa sản phẩm";
                 },
                 error: function () {
                     alert("Xóa sản phẩm thất bại");
                 },
             });
         }
-      
+
         function DeleteItem(id) {
             $.ajax({
                 type: "POST",
@@ -575,7 +600,7 @@
                 success: function (data) {
                     load();
                     loadCheckout();
-                    alert(data.Message);
+                    document.getElementById('notification').innerHTML = "Đã xóa sản phẩm";
                 },
                 error: function () {
                     alert("Xóa sản phẩm thất bại");
@@ -596,7 +621,7 @@
             //    }
             //});
             load()
-        } );
+        });
     </script>
 </body>
 </html>

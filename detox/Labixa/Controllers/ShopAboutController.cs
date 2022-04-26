@@ -14,8 +14,9 @@ using System.Net.Mime;
 
 namespace Labixa.Controllers
 {
-    public class ShopController : Controller
+    public class ShopAboutController : Controller
     {
+
         readonly IProductCategoryService _productCategoryService;
         readonly IBlogCategoryService _blogCategoryService;
         readonly IBlogService _blogService;
@@ -35,8 +36,8 @@ namespace Labixa.Controllers
         private string _storeId;
         private string _lang;
         private string _refixOrder;
-        
-        public ShopController(IOrderItemService orderItemService ,IProductCategoryService productCategoryService, IBlogService blogService, IProductService productService, IBlogCategoryService blogCategoryService, IWebsiteAttributeService websiteAttributeService, IMomoService momoService, IOrderService orderService)
+
+        public ShopAboutController(IOrderItemService orderItemService, IProductCategoryService productCategoryService, IBlogService blogService, IProductService productService, IBlogCategoryService blogCategoryService, IWebsiteAttributeService websiteAttributeService, IMomoService momoService, IOrderService orderService)
         {
             _productCategoryService = productCategoryService;
             _blogService = blogService;
@@ -60,94 +61,28 @@ namespace Labixa.Controllers
             this._refixOrder = ConfigurationManager.AppSettings["refixOrder"];
         }
         //
-        // GET: /Shop/
+        // GET: /ShopAbout/
         public ActionResult Index()
-         {
+        {
+            return View();
+        }
+
+        public ActionResult AboutUs()
+        {
             ShopFormModel shopFormModel = new ShopFormModel();
-            var productCategories = _productCategoryService.GetProductCategories();
-            shopFormModel.productCategories = productCategories;
-            List<Product> listProducts = new List<Product>();
-            shopFormModel.websiteAttributes = checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Home").ToList());
-          
-
-            foreach (var item in productCategories)
-            {
-                var product = _productService.GetProductsByCategoryId(item.Id).OrderByDescending(p => p.DateCreated).Take(8);
-                foreach(var b in product)
-                {
-                    listProducts.Add(b);
-                }
-            }
-
-            shopFormModel.hotProducts = _productService.GetProducts().OrderByDescending(p => p.DateCreated).Take(6);
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
-            ViewBag.ShopFormModel = shopFormModel;
-            return View(listProducts);
-        }
-
-        [HttpPost]
-        public ActionResult DeleteItemCart(int id)
-        {
-            List<Product> listCart = (List<Product>)Session["ShoppingCart"];
-            var product = _productService.GetProductById(id);
-            listCart.Remove(product);
-
-            this.Session["ShoppingCart"] = listCart;
-
-            string message = "Xóa sản phẩm thành công";
-            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
-        }
-
-        [HttpPost]
-        public ActionResult UpdateItemCart(int id, string val)
-        {
-            List<Product> listCart = (List<Product>)Session["ShoppingCart"];
-            foreach(var item in listCart)
-            {
-                if (item.Id == id)
-                {
-                    if(val == "-")
-                    {
-                        if (item.Stock >= 2)
-                        {
-                            item.Stock--;
-                        }
-                    }
-                    else
-                    {
-                        item.Stock++;
-                    }
-                }
-            }    
-
-            this.Session["ShoppingCart"] = listCart;
-
-            string message = "Cập sản phẩm thành công";
-            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
-        }
-
-        [HttpPost]
-        public ActionResult LoadCart()
-        {
-            List<Product> getCart = (List<Product>)Session["ShoppingCart"];
-          
-            return PartialView(getCart);
-        }
-
-        public ActionResult LoadCheckout()
-        {
-            List<Product> getCart = (List<Product>)Session["ShoppingCart"];
-
-            return PartialView(getCart);
+            shopFormModel.websiteAttributes = checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("About").ToList());
+            ViewBag.shopFormModel = shopFormModel;
+            return View();
         }
 
         public List<WebsiteAttribute> checkWebsiteAtribute(List<WebsiteAttribute> webSiteAtribute)
         {
-            foreach(var item in webSiteAtribute)
+            foreach (var item in webSiteAtribute)
             {
-                if(item.Description == "title")
+                if (item.Description == "title")
                 {
-                    if(item.Value == null || item.Value == " ")
+                    if (item.Value == null || item.Value == " ")
                     {
                         item.Value = "Gems-Tek";
                     }
@@ -169,6 +104,5 @@ namespace Labixa.Controllers
             }
             return webSiteAtribute;
         }
-
     }
 }
