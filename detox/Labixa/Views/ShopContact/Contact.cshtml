@@ -127,7 +127,22 @@
             });
         }
         else {
-            if()
+            if (name.checkValidity() == false) {
+                document.getElementById('notification').innerHTML = "Sai định dạng họ tên";
+                return false;
+            }
+            if (phone.checkValidity() == false) {
+                document.getElementById('notification').innerHTML = "Sai định dạng số điện thoại";
+                return false;
+            }
+            if (email.checkValidity() == false) {
+                document.getElementById('notification').innerHTML = "Sai định dạng email";
+                return false;
+            }
+            if (message.checkValidity() == false) {
+                document.getElementById('notification').innerHTML = "Sai định dạng nội dung ý kiến";
+                return false;
+            }
         }
     }
 </script>
