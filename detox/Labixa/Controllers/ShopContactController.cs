@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
+using Labixa.Controllers;
 
 namespace Labixa.Controllers
 {
@@ -75,6 +76,13 @@ namespace Labixa.Controllers
             shopFormModel.websiteAttributes = checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Contact").ToList());
             ViewBag.shopFormModel = shopFormModel;
             return View();
+        }
+        [HttpPost]
+        public ActionResult SendContact(string name, string phone, string email, string messenger)
+        {
+
+
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         public List<WebsiteAttribute> checkWebsiteAtribute(List<WebsiteAttribute> webSiteAtribute)
