@@ -15,7 +15,7 @@
                         <li class="active"><a>Liên hệ</a></li>
                     </ul>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -37,7 +37,7 @@
                                     <div class="form-group">
                                         <label>Họ tên<span>*</span></label>
                                         <input name="name" id="name" type="text" placeholder="" required pattern="[A-z\s_àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]{2,30}">
-                                    </div>  
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 col-12">
                                     <div class="form-group">
@@ -59,13 +59,14 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group button">
-                                        <button type="button" class="btn" onclick="sendContact()" data-toggle="modal" data-target="#exampleModal">Gửi</button>
+                                        <button type="button" class="btn" onclick="sendContact()">Gửi</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+
                 <div class="col-lg-4 col-12">
                     <div class="single-head">
                         <div class="single-info">
@@ -73,7 +74,7 @@
                             <h4 class="title">Số điện thoại:</h4>
                             <ul>
                                 <li>(+84) 090 671 0739</li>
-                                
+
                             </ul>
                         </div>
                         <div class="single-info">
@@ -81,7 +82,7 @@
                             <h4 class="title">Email:</h4>
                             <ul>
                                 <li><a href="admin@amazingtech.vn">admin@amazingtech.vn</a></li>
-                              
+
                             </ul>
                         </div>
                         <div class="single-info">
@@ -107,6 +108,8 @@
 
 
         if (name.checkValidity() == true && email.checkValidity() == true && phone.checkValidity() == true && message.checkValidity() == true) {
+            console.log("validate all success")
+           
             $.ajax({
                 type: "POST",
                 url: '/ShopContact/SendContact',
@@ -119,28 +122,39 @@
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function () {
+                    console.log("success");
+
                     document.getElementById('notification').innerHTML = "Cảm ơn đã đóng góp ý kiến";
+                    $('#exampleModal').show();
                 },
                 error: function () {
-                    alert("Gửi thông tin thất bại")
+                    console.log("fail");
+                    document.getElementById('notification').innerHTML = "Gửi thông tin thất bại";
+                    $('#exampleModal').show();
                 },
             });
         }
         else {
+            console.log("validate all fail")
+
             if (name.checkValidity() == false) {
                 document.getElementById('notification').innerHTML = "Sai định dạng họ tên";
+                $('#exampleModal').show();
                 return false;
             }
             if (phone.checkValidity() == false) {
                 document.getElementById('notification').innerHTML = "Sai định dạng số điện thoại";
+                $('#exampleModal').show();
                 return false;
             }
             if (email.checkValidity() == false) {
                 document.getElementById('notification').innerHTML = "Sai định dạng email";
+                $('#exampleModal').show();
                 return false;
             }
             if (message.checkValidity() == false) {
                 document.getElementById('notification').innerHTML = "Sai định dạng nội dung ý kiến";
+                $('#exampleModal').show();
                 return false;
             }
         }

@@ -475,7 +475,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -488,8 +488,7 @@
                         <p id="notification" style="font-size:18px"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Close()">Thoát</button>
                     </div>
                 </div>
             </div>
@@ -546,6 +545,10 @@
             });
         }
 
+        function Close() {
+            $('#exampleModal').hide();
+        }
+
         function buy(id) {
 
             $.ajax({
@@ -560,11 +563,14 @@
                 success: function (data) {
                     /*$('#cart').html(data.cart);*/
                     document.getElementById('notification').innerHTML = "Đã thêm sản phẩm vào giỏ hàng";
+                    $('#exampleModal').show();
                     load();
-
                 },
                 error: function () {
-                    alert("Thêm giỏ hàng thất bại");
+            
+                    document.getElementById('notification').innerHTML = "Thêm giỏ hàng thất bại";
+
+                    $('#exampleModal').show();
                 }
             });
         }
@@ -581,9 +587,12 @@
                 success: function (data) {
                     load();
                     document.getElementById('notification').innerHTML = "Đã xóa sản phẩm";
+                    $('#exampleModal').show();
                 },
                 error: function () {
-                    alert("Xóa sản phẩm thất bại");
+                    document.getElementById('notification').innerHTML = "Xóa sản phẩm thất bại";
+
+                    $('#exampleModal').show();
                 },
             });
         }
@@ -601,9 +610,12 @@
                     load();
                     loadCheckout();
                     document.getElementById('notification').innerHTML = "Đã xóa sản phẩm";
+                    $('#exampleModal').show();
                 },
                 error: function () {
-                    alert("Xóa sản phẩm thất bại");
+                    document.getElementById('notification').innerHTML = "Xóa sản phẩm thất bại";
+
+                    $('#exampleModal').show();
                 },
             });
         }

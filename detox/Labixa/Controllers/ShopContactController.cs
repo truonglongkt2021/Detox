@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
 using Labixa.Controllers;
+using System.IO;
 
 namespace Labixa.Controllers
 {
@@ -91,7 +92,8 @@ namespace Labixa.Controllers
                 message.To.Add(new MailAddress(email));
                 message.Subject = "Detox - Thông báo xác nhận đặt hàng";
                 message.IsBodyHtml = true; //to make message body as html  
-                message.Body = "<b>Cảm ơn đã đặt hàng của chúng tôi</b>";
+                message.Body = ConvertViewToString("_PartialViewMail", messenger);
+       
                 smtp.Port = 587;
                 smtp.Host = "smtp.gmail.com"; //for gmail host  
                 smtp.EnableSsl = true;
@@ -108,6 +110,32 @@ namespace Labixa.Controllers
             }
 
             return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        //private static string RenderPartialViewToString(Controller controller, string viewName, Object model)
+        //{
+        //    using (StringWriter sw = new StringWriter())
+        //    {
+        //        ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(controller.ControllerContext, viewName);
+        //        controller.ViewData.Model = model;
+
+        //        ViewContext viewContext = new ViewContext(controller.ControllerContext, viewResult.View, controller.ViewData, controller.TempData, sw);
+        //        viewResult.View.Render(viewContext, sw);
+
+        //        return sw.ToString();
+        //    }
+        //}
+
+        private string ConvertViewToString(string viewName, object model) 
+        { 
+            ViewData.Model = model; 
+            using (StringWriter writer = new StringWriter()) 
+            { 
+                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName); 
+                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer); 
+                vResult.View.Render(vContext, writer); 
+                return writer.ToString(); 
+            } 
         }
 
         //public List<WebsiteAttribute> checkWebsiteAtribute(List<WebsiteAttribute> webSiteAtribute)
