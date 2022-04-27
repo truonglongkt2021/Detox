@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
+using Labixa.Controllers;
 
 namespace Labixa.Controllers
 {
@@ -26,6 +27,7 @@ namespace Labixa.Controllers
         readonly IOrderService _orderService;
         readonly IMomoService _momoService;
         readonly IOrderItemService _orderItemService;
+        readonly ShopController _shopController;
         private string _accessKey;
         private string _endpoint;
         private string _partnerCode;
@@ -38,7 +40,7 @@ namespace Labixa.Controllers
         private string _lang;
         private string _refixOrder;
 
-        public ShopProductController(IOrderItemService orderItemService, IProductCategoryService productCategoryService, IBlogService blogService, IProductService productService, IBlogCategoryService blogCategoryService, IWebsiteAttributeService websiteAttributeService, IMomoService momoService, IOrderService orderService)
+        public ShopProductController(ShopController shopController, IOrderItemService orderItemService, IProductCategoryService productCategoryService, IBlogService blogService, IProductService productService, IBlogCategoryService blogCategoryService, IWebsiteAttributeService websiteAttributeService, IMomoService momoService, IOrderService orderService)
         {
             _productCategoryService = productCategoryService;
             _blogService = blogService;
@@ -46,6 +48,7 @@ namespace Labixa.Controllers
             _blogCategoryService = blogCategoryService;
             _websiteAttributeService = websiteAttributeService;
             _orderService = orderService;
+            _shopController = shopController;
             this._orderItemService = orderItemService;
             this._momoService = momoService;
             this._orderService = orderService;
@@ -75,7 +78,7 @@ namespace Labixa.Controllers
             var productCategory = _productCategoryService.GetProductCategoryBySlug(slug);
             var product = _productService.GetProductsByCategoryId(productCategory.Id);
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
-            shopFormModel.websiteAttributes = checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Product").ToList());
+            shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Product").ToList());
             ViewBag.productCategory = productCategory;
             ViewBag.ShopFormModel = shopFormModel;
             return View(product);
@@ -87,7 +90,7 @@ namespace Labixa.Controllers
 
             ShopFormModel shopFormModel = new ShopFormModel();
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
-            shopFormModel.websiteAttributes = checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Product").ToList());
+            shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Product").ToList());
             ViewBag.shopFormModel = shopFormModel;
             return View(productSearch);
         }
@@ -98,7 +101,7 @@ namespace Labixa.Controllers
 
             ShopFormModel shopFormModel = new ShopFormModel();
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
-            shopFormModel.websiteAttributes = checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Home").ToList());
+            shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Home").ToList());
             foreach (var item in shopFormModel.websiteAttributes)
             {
                 if (item.Description == "title")
@@ -154,34 +157,34 @@ namespace Labixa.Controllers
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
 
-        public List<WebsiteAttribute> checkWebsiteAtribute(List<WebsiteAttribute> webSiteAtribute)
-        {
-            foreach (var item in webSiteAtribute)
-            {
-                if (item.Description == "title")
-                {
-                    if (item.Value == null || item.Value == " ")
-                    {
-                        item.Value = "Gems-Tek";
-                    }
-                }
-                if (item.Description == "description")
-                {
-                    if (item.Value == null || item.Value == " ")
-                    {
-                        item.Value = "Gems-Tek";
-                    }
-                }
-                if (item.Description == "keyword")
-                {
-                    if (item.Value == null || item.Value == " ")
-                    {
-                        item.Value = "Gems-Tek";
-                    }
-                }
-            }
-            return webSiteAtribute;
-        }
+        //public List<WebsiteAttribute> checkWebsiteAtribute(List<WebsiteAttribute> webSiteAtribute)
+        //{
+        //    foreach (var item in webSiteAtribute)
+        //    {
+        //        if (item.Description == "title")
+        //        {
+        //            if (item.Value == null || item.Value == " ")
+        //            {
+        //                item.Value = "Gems-Tek";
+        //            }
+        //        }
+        //        if (item.Description == "description")
+        //        {
+        //            if (item.Value == null || item.Value == " ")
+        //            {
+        //                item.Value = "Gems-Tek";
+        //            }
+        //        }
+        //        if (item.Description == "keyword")
+        //        {
+        //            if (item.Value == null || item.Value == " ")
+        //            {
+        //                item.Value = "Gems-Tek";
+        //            }
+        //        }
+        //    }
+        //    return webSiteAtribute;
+        //}
 
 
         public ActionResult ThanhToanMomo(string phone, string address, string total, string email)
@@ -243,7 +246,7 @@ namespace Labixa.Controllers
         {
             ShopFormModel shopFormModel = new ShopFormModel();
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
-            shopFormModel.websiteAttributes = checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Home").ToList());
+            shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Home").ToList());
             foreach (var item in shopFormModel.websiteAttributes)
             {
                 if (item.Description == "title")

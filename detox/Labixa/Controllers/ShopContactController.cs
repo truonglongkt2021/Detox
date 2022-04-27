@@ -26,6 +26,7 @@ namespace Labixa.Controllers
         readonly IOrderService _orderService;
         readonly IMomoService _momoService;
         readonly IOrderItemService _orderItemService;
+        readonly ShopController _shopController;
         private string _accessKey;
         private string _endpoint;
         private string _partnerCode;
@@ -38,7 +39,7 @@ namespace Labixa.Controllers
         private string _lang;
         private string _refixOrder;
 
-        public ShopContactController(IOrderItemService orderItemService, IProductCategoryService productCategoryService, IBlogService blogService, IProductService productService, IBlogCategoryService blogCategoryService, IWebsiteAttributeService websiteAttributeService, IMomoService momoService, IOrderService orderService)
+        public ShopContactController(ShopController shopController, IOrderItemService orderItemService, IProductCategoryService productCategoryService, IBlogService blogService, IProductService productService, IBlogCategoryService blogCategoryService, IWebsiteAttributeService websiteAttributeService, IMomoService momoService, IOrderService orderService)
         {
             _productCategoryService = productCategoryService;
             _blogService = blogService;
@@ -46,6 +47,7 @@ namespace Labixa.Controllers
             _blogCategoryService = blogCategoryService;
             _websiteAttributeService = websiteAttributeService;
             _orderService = orderService;
+            _shopController = shopController;
             this._orderItemService = orderItemService;
             this._momoService = momoService;
             this._orderService = orderService;
@@ -73,45 +75,68 @@ namespace Labixa.Controllers
         {
             ShopFormModel shopFormModel = new ShopFormModel();
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
-            shopFormModel.websiteAttributes = checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Contact").ToList());
+            shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Contact").ToList());
             ViewBag.shopFormModel = shopFormModel;
             return View();
         }
         [HttpPost]
         public ActionResult SendContact(string name, string phone, string email, string messenger)
         {
-
+            string mess = "";
+            try
+            {
+                MailMessage message = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                message.From = new MailAddress("nhokthach007@gmail.com");
+                message.To.Add(new MailAddress(email));
+                message.Subject = "Detox - Thông báo xác nhận đặt hàng";
+                message.IsBodyHtml = true; //to make message body as html  
+                message.Body = "<b>Cảm ơn đã đặt hàng của chúng tôi</b>";
+                smtp.Port = 587;
+                smtp.Host = "smtp.gmail.com"; //for gmail host  
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("nhokthach007@gmail.com", "0938707235");
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(message);
+                mess = "Gửi thông tin thành công";
+                Session["ShoppingCart"] = new List<Product>();
+            }
+            catch (Exception e)
+            {
+                mess = "Gửi thông tin thất bại do không thể gửi mail";
+            }
 
             return Json(JsonRequestBehavior.AllowGet);
         }
 
-        public List<WebsiteAttribute> checkWebsiteAtribute(List<WebsiteAttribute> webSiteAtribute)
-        {
-            foreach (var item in webSiteAtribute)
-            {
-                if (item.Description == "title")
-                {
-                    if (item.Value == null || item.Value == " ")
-                    {
-                        item.Value = "Gems-Tek";
-                    }
-                }
-                if (item.Description == "description")
-                {
-                    if (item.Value == null || item.Value == " ")
-                    {
-                        item.Value = "Gems-Tek";
-                    }
-                }
-                if (item.Description == "keyword")
-                {
-                    if (item.Value == null || item.Value == " ")
-                    {
-                        item.Value = "Gems-Tek";
-                    }
-                }
-            }
-            return webSiteAtribute;
-        }
+        //public List<WebsiteAttribute> checkWebsiteAtribute(List<WebsiteAttribute> webSiteAtribute)
+        //{
+        //    foreach (var item in webSiteAtribute)
+        //    {
+        //        if (item.Description == "title")
+        //        {
+        //            if (item.Value == null || item.Value == " ")
+        //            {
+        //                item.Value = "Gems-Tek";
+        //            }
+        //        }
+        //        if (item.Description == "description")
+        //        {
+        //            if (item.Value == null || item.Value == " ")
+        //            {
+        //                item.Value = "Gems-Tek";
+        //            }
+        //        }
+        //        if (item.Description == "keyword")
+        //        {
+        //            if (item.Value == null || item.Value == " ")
+        //            {
+        //                item.Value = "Gems-Tek";
+        //            }
+        //        }
+        //    }
+        //    return webSiteAtribute;
+        //}
     }
 }
