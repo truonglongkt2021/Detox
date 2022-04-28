@@ -331,9 +331,9 @@
                         <div class="inner">
                             <h4>Ưu Đãi</h4>
                             <p> Đăng ký và xác nhận để nhận ưu đãi giảm <span>10%</span> cho đơn đặt hàng đầu tiền</p>
-                            <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                                <input name="EMAIL" placeholder="Your email address" required="" type="email">
-                                <button class="btn">Subscribe</button>
+                            <form class="newsletter-inner">
+                                <input name="EMAIL" placeholder="Your email address" id="emailSub" required type="email">
+                                <button class="btn" onclick="Subcribe()">Subscribe</button>
                             </form>
                         </div>
                         <!-- End Newsletter Inner -->
@@ -547,6 +547,13 @@
 
         function Close() {
             $('#exampleModal').hide();
+        }
+
+        function Subcribe() {
+           
+            document.getElementById('notification').innerHTML = "Cảm ơn đã theo dõi chúng tôi";
+            $('#exampleModal').show();
+            document.getElementById('emailSub').value = "";
         }
 
         function buy(id) {

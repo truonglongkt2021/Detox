@@ -1,1 +1,6 @@
-﻿<p>Cảm ơn đã góp ý kiến với chúng tôi</p>
+﻿@using Labixa.ViewModels;
+@{ 
+    MailFormModel mailFormModel = ViewData["Data"] as MailFormModel;
+}
+
+<p>Cảm ơn @mailFormModel.Name đã góp ý kiến:"@mailFormModel.Messenger" với chúng tôi</p>

@@ -362,6 +362,7 @@
     <Compile Include="ViewModels\AccountManagement\PermissionEditAccountModel.cs" />
     <Compile Include="ViewModels\AlbumModels.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
+    <Compile Include="ViewModels\MailFormModel.cs" />
     <Compile Include="ViewModels\OrderTour.cs" />
     <Compile Include="ViewModels\ShopFormModel.cs" />
     <Compile Include="ViewModels\TourModels.cs" />

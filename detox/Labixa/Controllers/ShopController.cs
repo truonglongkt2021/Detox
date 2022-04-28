@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.IO;
 
 namespace Labixa.Controllers
 {
@@ -170,5 +171,16 @@ namespace Labixa.Controllers
             return webSiteAtribute;
         }
 
+        public string ConvertViewToString(string viewName, object model)
+        {
+            ViewData["Data"] = model;
+            using (StringWriter writer = new StringWriter())
+            {
+                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer);
+                vResult.View.Render(vContext, writer);
+                return writer.ToString();
+            }
+        }
     }
 }

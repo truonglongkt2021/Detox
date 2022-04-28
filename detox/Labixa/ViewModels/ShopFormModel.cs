@@ -8,7 +8,6 @@ namespace Labixa.ViewModels
 {
     public class ShopFormModel
     {
-
         public string Messenger { get; set; }
         public IEnumerable<Blog> blogsRelated { get; set; }
 

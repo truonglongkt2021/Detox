@@ -83,6 +83,11 @@ namespace Labixa.Controllers
         [HttpPost]
         public ActionResult SendContact(string name, string phone, string email, string messenger)
         {
+            MailFormModel mailFormModel = new MailFormModel();
+            mailFormModel.Messenger = messenger;
+            mailFormModel.Phone = phone;
+            mailFormModel.Name = name;
+            mailFormModel.Address = "";
             string mess = "";
             try
             {
@@ -90,9 +95,9 @@ namespace Labixa.Controllers
                 SmtpClient smtp = new SmtpClient();
                 message.From = new MailAddress("nhokthach007@gmail.com");
                 message.To.Add(new MailAddress(email));
-                message.Subject = "Detox - Thông báo xác nhận đặt hàng";
+                message.Subject = "Detox - Thông báo đóng góp ý kiến";
                 message.IsBodyHtml = true; //to make message body as html  
-                message.Body = ConvertViewToString("_PartialViewMail", messenger);
+                message.Body = ConvertViewToString("_PartialViewMail", mailFormModel);
        
                 smtp.Port = 587;
                 smtp.Host = "smtp.gmail.com"; //for gmail host  
@@ -126,16 +131,16 @@ namespace Labixa.Controllers
         //    }
         //}
 
-        private string ConvertViewToString(string viewName, object model) 
-        { 
-            ViewData.Model = model; 
-            using (StringWriter writer = new StringWriter()) 
-            { 
-                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName); 
-                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer); 
-                vResult.View.Render(vContext, writer); 
-                return writer.ToString(); 
-            } 
+        private string ConvertViewToString(string viewName, object model)
+        {
+            ViewData["Data"] = model;
+            using (StringWriter writer = new StringWriter())
+            {
+                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer);
+                vResult.View.Render(vContext, writer);
+                return writer.ToString();
+            }
         }
 
         //public List<WebsiteAttribute> checkWebsiteAtribute(List<WebsiteAttribute> webSiteAtribute)

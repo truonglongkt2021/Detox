@@ -123,7 +123,10 @@
                 contentType: "application/json; charset=utf-8",
                 success: function () {
                     console.log("success");
-
+                    name.value = "";
+                    email.value = "";
+                    phone.value = "";
+                    message.value = "";
                     document.getElementById('notification').innerHTML = "Cảm ơn đã đóng góp ý kiến";
                     $('#exampleModal').show();
                 },

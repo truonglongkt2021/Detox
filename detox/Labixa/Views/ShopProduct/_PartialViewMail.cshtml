@@ -1,1 +1,5 @@
-﻿<b>Cảm ơn đã đặt hàng của chúng tôi</b>
+﻿@using Labixa.ViewModels
+@{ 
+    MailFormModel mailFormModel = ViewData["Data"] as MailFormModel;
+}
+<b>Cảm ơn đã đặt hàng của chúng tôi, chúng tôi sẽ sớm liên hệ với bạn qua số điện thoại @mailFormModel.Phone để xác nhận thông tin</b>

@@ -269,6 +269,11 @@ namespace Labixa.Controllers
             }
 
             string mess = "";
+            MailFormModel mailFormModel = new MailFormModel();
+            mailFormModel.Messenger = "";
+            mailFormModel.Phone = phone;
+            mailFormModel.Name = "";
+            mailFormModel.Address = address;
             try
             {
                 MailMessage message = new MailMessage();
@@ -277,7 +282,7 @@ namespace Labixa.Controllers
                 message.To.Add(new MailAddress(email));
                 message.Subject = "Detox - Thông báo xác nhận đặt hàng";
                 message.IsBodyHtml = true; //to make message body as html  
-                message.Body = ConvertViewToString("_PartialViewMail", "");
+                message.Body = ConvertViewToString("_PartialViewMail", mailFormModel);
 
                 smtp.Port = 587;
                 smtp.Host = "smtp.gmail.com"; //for gmail host  
@@ -300,7 +305,7 @@ namespace Labixa.Controllers
 
         private string ConvertViewToString(string viewName, object model)
         {
-            ViewData.Model = model;
+            ViewData["Data"] = model;
             using (StringWriter writer = new StringWriter())
             {
                 ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
