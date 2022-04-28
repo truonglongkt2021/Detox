@@ -1,0 +1,123 @@
+﻿@using Outsourcing.Data.Models
+@using Labixa.ViewModels
+@model List<Product>
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ShopFormModel shopFormModel = ViewBag.shopFormModel;
+   
+}
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="@Url.RouteUrl("TrangChu")">Trang chủ<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a>Thanh toán</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+<!-- Shopping Cart -->
+<div class="shopping-cart section">
+    <div class="container" id="checkout">
+       
+    </div>
+</div>
+<!--/ End Shopping Cart -->
+<script>
+    function loadCheckout() {
+        $.ajax({
+            type: "POST",
+            url: '/Shop/LoadCheckout',
+            dataType: 'html',
+            success: function (data) {
+                $('#checkout').html(data);
+            },
+            error: function () {
+                alert("Load check cart fail");
+            }
+        });
+    }
+
+    function UpdateItem(id, val, price) {
+        //Cập nhập số lượng sau khi chọn tăng giảm
+        var quant = document.getElementById('quant_' + id).value;
+        var hiddenTotalOrder = document.getElementById('hiddenTotalOrder').value;
+        if (val == "+") {
+            quant++;
+            //Cập nhập tổng tiền order
+            hiddenTotalOrder = parseInt(hiddenTotalOrder) + parseInt(price);
+            document.getElementById('hiddenTotalOrder').value = hiddenTotalOrder;
+
+            convertPrice = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(hiddenTotalOrder);
+
+            convertPrice = convertPrice.replace(" ₫", " ");
+            convertPrice = convertPrice.replace(".", ",");
+            document.getElementById('totalOrder').innerHTML = convertPrice + ' đ';
+
+        }
+        else {
+            if (quant > 1) {
+                quant--;
+                //Cập nhập tổng tiền order
+                hiddenTotalOrder = parseInt(hiddenTotalOrder) - parseInt(price);
+                document.getElementById('hiddenTotalOrder').value = hiddenTotalOrder;
+               
+                convertPrice = new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                }).format(hiddenTotalOrder);
+
+                convertPrice = convertPrice.replace(" ₫", " ");
+                convertPrice = convertPrice.replace(".", ",");
+                document.getElementById('totalOrder').innerHTML = convertPrice + ' đ';
+            }
+        }
+        document.getElementById('quant_' + id).value = quant;
+      
+
+        //Cập nhập tổng tiền sản phẩm
+        var total_price = parseInt(quant) * parseInt(price);
+        convertPrice2 = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(total_price);
+        convertPrice2 = convertPrice2.replace(" ₫", " ");
+        convertPrice2 = convertPrice2.replace(".", ",");
+        document.getElementById('totalPrice_' + id).innerHTML = convertPrice2 + ' đ';
+
+
+        $.ajax({
+            type: "POST",
+            url: '/Shop/UpdateItemCart',
+            data: JSON.stringify({
+                "id": id,
+                "val": val,
+            }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                
+            },
+            error: function () {
+                alert("Cập nhập sản phẩm thất bại");
+            },
+        });
+    }
+
+
+
+    window.onload = function () {
+        loadCheckout();
+    }
+</script>

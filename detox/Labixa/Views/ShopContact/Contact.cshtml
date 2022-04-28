@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="index1.html">Trang chủ<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a>Liên hệ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Body content-->
+<!-- Start Contact -->
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+        <div class="contact-head">
+            <div class="row">
+                <div class="col-lg-8 col-12">
+                    <div class="form-main">
+                        <div class="title">
+                            <h4>Hãy cho chúng tôi biết ý kiến của bạn</h4>
+                            <h3>Thông tin phản hồi</h3>
+                        </div>
+                        <form class="form" method="post" action="">
+                            <div class="row">
+                                <div class="col-lg-12 col-12">
+                                    <div class="form-group">
+                                        <label>Họ tên<span>*</span></label>
+                                        <input name="name" id="name" type="text" placeholder="" required pattern="[A-z\s_àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]{2,30}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label>Địa chỉ Email<span>*</span></label>
+                                        <input name="email" id="email" type="email" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label>Số điện thoại<span>*</span></label>
+                                        <input name="phone" id="phone" type="text" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group message">
+                                        <label>Nội dung ý kiến<span>*</span></label>
+                                        <textarea name="message" id="message" placeholder="" required pattern="[A-z\s_àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]{2,30}"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group button">
+                                        <button type="button" class="btn" onclick="sendContact()">Gửi</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12">
+                    <div class="single-head">
+                        <div class="single-info">
+                            <i class="fa fa-phone"></i>
+                            <h4 class="title">Số điện thoại:</h4>
+                            <ul>
+                                <li>(+84) 090 671 0739</li>
+
+                            </ul>
+                        </div>
+                        <div class="single-info">
+                            <i class="fa fa-envelope-open"></i>
+                            <h4 class="title">Email:</h4>
+                            <ul>
+                                <li><a href="admin@amazingtech.vn">admin@amazingtech.vn</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="single-info">
+                            <i class="fa fa-location-arrow"></i>
+                            <h4 class="title">Địa chỉ:</h4>
+                            <ul>
+                                <li> 74 Nguyễn Cửu Đàm, P. Tân Sơn Nhì, Q.Tân Phú, HCM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+    function sendContact() {
+        var name = document.getElementById('name');
+        var email = document.getElementById('email');
+        var phone = document.getElementById('phone');
+        var message = document.getElementById('message');
+
+
+        if (name.checkValidity() == true && email.checkValidity() == true && phone.checkValidity() == true && message.checkValidity() == true) {
+            console.log("validate all success")
+           
+            $.ajax({
+                type: "POST",
+                url: '/ShopContact/SendContact',
+                data: JSON.stringify({
+                    "name": name.value,
+                    "phone": phone.value,
+                    "email": email.value,
+                    "messenger": message.value,
+                }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    console.log("success");
+
+                    document.getElementById('notification').innerHTML = "Cảm ơn đã đóng góp ý kiến";
+                    $('#exampleModal').show();
+                },
+                error: function () {
+                    console.log("fail");
+                    document.getElementById('notification').innerHTML = "Gửi thông tin thất bại";
+                    $('#exampleModal').show();
+                },
+            });
+        }
+        else {
+            console.log("validate all fail")
+
+            if (name.checkValidity() == false) {
+                document.getElementById('notification').innerHTML = "Sai định dạng họ tên";
+                $('#exampleModal').show();
+                return false;
+            }
+            if (phone.checkValidity() == false) {
+                document.getElementById('notification').innerHTML = "Sai định dạng số điện thoại";
+                $('#exampleModal').show();
+                return false;
+            }
+            if (email.checkValidity() == false) {
+                document.getElementById('notification').innerHTML = "Sai định dạng email";
+                $('#exampleModal').show();
+                return false;
+            }
+            if (message.checkValidity() == false) {
+                document.getElementById('notification').innerHTML = "Sai định dạng nội dung ý kiến";
+                $('#exampleModal').show();
+                return false;
+            }
+        }
+    }
+</script>
+<!--/ End Contact -->

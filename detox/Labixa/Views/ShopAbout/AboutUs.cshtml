@@ -1,0 +1,92 @@
+﻿@using Outsourcing.Data.Models
+@using Labixa.ViewModels
+@{
+    ViewBag.Title = "AboutUs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ShopFormModel shopFormModel = ViewBag.shopFormModel;
+}
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="index1.html">Trang chủ<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a>Về chúng tôi</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Body content-->
+<!-- Start Shop Newsletter  -->
+<section class="shop-newsletter section">
+    <div class="container">
+        <div class="inner-top">
+            <div class="row display-about" style="margin: 0 20px;">
+                <div class="col-lg col about-left-content center-content-about">
+                    <p style="text-align:center; font-size: 28px; color: #183A5C">Về Chúng tôi</p>
+                    <p style="margin-top: 20px;" class="font-sz">Chúng tôi chuyên cung cấp những sản phẩm tốt nhất đến với các bạn</p>
+                    <ul>
+                        <li>giá cả hợp lý, ưu đãi và rẻ nhất cho khách hàng</li>
+                        <li>đặt hàng trực tuyến nhanh, tiện lợi</li>
+                        <li>hỗ trợ thắc mắc của khách hàng trực tuyến</li>
+                        <li>Giao hàng miễn phí đến trường học</li>
+                    </ul>
+                </div>
+                <div class="col-lg col img-about" style="width: 100%; height: inherit;">
+                    <img src="~/Content/shop/images/cocktails-49841.png" s alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End body content-->
+
+
+<section class="shop-services section home">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Start Single Service -->
+                <div class="single-service">
+                    <i class="ti-rocket"></i>
+                    <h4>Miễn phí vận chuyển</h4>
+                    <p>Cho đơn hàng hơn 500.000 đ</p>
+                </div>
+                <!-- End Single Service -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Start Single Service -->
+                <div class="single-service">
+                    <i class="ti-reload"></i>
+                    <h4>Miễn phí hoàn trả</h4>
+                    <p>Trong vòng 30 ngày khi nhận hàng</p>
+                </div>
+                <!-- End Single Service -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Start Single Service -->
+                <div class="single-service">
+                    <i class="ti-lock"></i>
+                    <h4>Thanh toán an toàn</h4>
+                    <p>100% an toàn khi thanh toán</p>
+                </div>
+                <!-- End Single Service -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Start Single Service -->
+                <div class="single-service">
+                    <i class="ti-tag"></i>
+                    <h4>Giá cả hợp lý</h4>
+                    <p>Đảm bảo về giá cả sản phẩm</p>
+                </div>
+                <!-- End Single Service -->
+            </div>
+        </div>
+    </div>
+</section>
+
