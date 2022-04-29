@@ -192,7 +192,7 @@
                             <!-- Search Form -->
                             <div class="search-top">
                                 <form class="search-form" method="get" action="@Url.RouteUrl("TimKiem")">
-                                    <input type="text" placeholder="Tìm kiếm..." name="key">
+                                    <input type="text" placeholder="Tìm kiếm..." name="key" value="@shopFormModel.key">
                                     <button value="search" type="submit"><i class="ti-search"></i></button>
                                 </form>
                             </div>
@@ -206,7 +206,7 @@
                         <div class="search-bar-top">
                             <div class="search-bar">
                                 <form method="get" action="@Url.RouteUrl("TimKiem")">
-                                    <input name="key" placeholder="Tìm kiếm sản phẩm....." type="search">
+                                    <input name="key" placeholder="Tìm kiếm sản phẩm....." value="@shopFormModel.key" type="search">
                                     <button type="submit" class="btnn"><i class="ti-search"></i></button>
                                 </form>
                             </div>
@@ -546,6 +546,7 @@
         }
 
         function Close() {
+        
             $('#exampleModal').hide();
         }
 

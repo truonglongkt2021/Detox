@@ -10,6 +10,7 @@ using System.Configuration;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Mail;
+using PagedList;
 using System.Net.Mime;
 using Labixa.Controllers;
 using System.IO;
@@ -73,27 +74,41 @@ namespace Labixa.Controllers
             return View();
         }
 
-        public ActionResult Product(string slug)
+        public ActionResult Product(string slug, int? page)
         {
+            int pageSize = 4;
+            int pageIndex = 1;
+
             ShopFormModel shopFormModel = new ShopFormModel();
             var productCategory = _productCategoryService.GetProductCategoryBySlug(slug);
             var product = _productService.GetProductsByCategoryId(productCategory.Id);
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
             shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Product").ToList());
+
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<Product> prdPageList = null;
+            prdPageList = product.ToPagedList(pageIndex, pageSize);
+
             ViewBag.productCategory = productCategory;
             ViewBag.ShopFormModel = shopFormModel;
-            return View(product);
+            return View(prdPageList);
         }
 
-        public ActionResult Search(string key)
+        public ActionResult Search(string key, int? page)
         {
-            var productSearch = _productService.GetAllProducts().Where(p => p.Name.Contains(key));
+            int pageSize = 4;
+            int pageIndex = 1;
+            var productSearch = _productService.GetAllProducts().Where(p => p.Name.ToLower() == key.ToLower());
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<Product> prdPageList = null;
+            prdPageList = productSearch.ToPagedList(pageIndex, pageSize);
 
             ShopFormModel shopFormModel = new ShopFormModel();
+            shopFormModel.key = key;
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
             shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Product").ToList());
             ViewBag.shopFormModel = shopFormModel;
-            return View(productSearch);
+            return View(prdPageList);
         }
 
         public ActionResult Checkout()

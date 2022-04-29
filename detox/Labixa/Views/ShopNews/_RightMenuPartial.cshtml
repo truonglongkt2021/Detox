@@ -1,21 +1,22 @@
 ﻿
 @using Outsourcing.Data.Models
-@model IEnumerable<Blog>
+@using Labixa.ViewModels
+@model ShopFormModel
 <div class="col-lg-4 col-12">
     <div class="main-sidebar">
         <!-- Single Widget -->
         <div class="single-widget search">
             <form class="form" method="get" action="@Url.RouteUrl("TimKiemBaiViet")">
-                <input type="text" placeholder="Tìm kiếm..." name="key">
+                <input type="text" placeholder="Tìm kiếm..." name="keySearchBlog" value="@Model.keySearchBlog">
                 <button class="button" type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
         <div class="single-widget recent-post">
             <h3 class="title">Bài viết gần đây</h3>
             <!-- Single Post -->
-            @if (Model.Any() && Model != null)
+            @if (Model.blogsRelated.Any() && Model.blogsRelated != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.blogsRelated)
                 {
                     <div class="single-post">
                         <div class="image">

@@ -5264,3 +5264,81 @@ a {
 	}
 }
 
+.mb15 {
+	margin-bottom: 15px;
+}
+
+@media screen and (min-width: 769px) {
+	.col-md-12 {
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+}
+
+.pager .pagination-container {
+	display: inline-flex;
+}
+
+.pagination {
+	margin-bottom: 20px;
+	display: -ms-flexbox;
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	border-radius: .25rem;
+}
+
+.pager .pagination-container ul li.active {
+	border: 1px solid #0981CD !important;
+	border-radius: 3px !important;
+	background-color: white;
+	color: #01918C;
+	margin: 0 3px;
+}
+
+.pager .pagination-container ul li {
+	padding: 8px;
+	border: 1px solid #0981CD !important;
+	border-radius: 3px !important;
+	background-color: #0981CD;
+	color: white;
+	margin: 0 3px;
+}
+
+.pager .pagination-container ul li {
+	padding: 8px;
+	border: 1px solid #0981CD !important;
+	border-radius: 3px !important;
+	background-color: #0981CD;
+	color: white;
+	margin: 0 3px;
+}
+
+ul, li {
+	list-style-type: none;
+}
+
+li {
+	line-height: 18px;
+	list-style-type: none;
+	margin: 0px;
+	letter-spacing: 0;
+	display: inline-block;
+	font-size: 16px;
+}
+
+.pager .pagination-container ul li a {
+	padding: 8px 8px;
+	text-decoration: none;
+	transition: background-color .3s;
+}
+
+.pager .pagination-container ul li:hover {
+	border: 1px solid #0981CD !important;
+	border-radius: 3px !important;
+	background-color: white;
+	color: black;
+}
+
+

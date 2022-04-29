@@ -19,6 +19,8 @@ namespace Labixa.ViewModels
 
         public IEnumerable<Product> hotProducts { get; set; }
 
-        
+        public string key { get; set; }
+
+        public string keySearchBlog { get; set; }
     }
 }

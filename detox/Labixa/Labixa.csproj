@@ -2036,6 +2036,7 @@
     <Content Include="Views\ShopProduct\ThanhToanTrucTuyen.cshtml" />
     <Content Include="Views\ShopContact\_PartialViewMail.cshtml" />
     <Content Include="Views\ShopProduct\_PartialViewMail.cshtml" />
+    <Content Include="Views\ShopNews\SearchBlog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

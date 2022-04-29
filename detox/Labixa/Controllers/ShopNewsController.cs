@@ -10,6 +10,7 @@ using System.Configuration;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Mail;
+using PagedList;    
 using System.Net.Mime;
 using Labixa.Controllers;
 
@@ -70,22 +71,29 @@ namespace Labixa.Controllers
             return View();
         }
 
-        public ActionResult News()
+        public ActionResult News(int? page)
         {
+            int pageSize = 6;
+            int pageIndex = 1;
             var blogs = _blogService.GetBlogs();
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<Blog> prdPageList = null;
+            prdPageList = blogs.ToPagedList(pageIndex, pageSize);
 
             ShopFormModel shopFormModel = new ShopFormModel();
+            shopFormModel.key = "";
             shopFormModel.blogsRelated = _blogService.Get3BlogNewsNewest();
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
             shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("News").ToList());
             ViewBag.shopFormModel = shopFormModel;
-            return View(blogs);
+            return View(prdPageList);
         }
 
         public ActionResult NewsDetail(string slug)
         {
             var blog = _blogService.GetBlogBySlug(slug);
             ShopFormModel shopFormModel = new ShopFormModel();
+            shopFormModel.key = "";
             shopFormModel.blogsRelated = _blogService.Get3BlogNewsNewest();
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
             shopFormModel.websiteAttributes = _websiteAttributeService.GetWebsiteAttributesByType("News").ToList();
@@ -111,6 +119,33 @@ namespace Labixa.Controllers
             shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(shopFormModel.websiteAttributes);
             ViewBag.shopFormModel = shopFormModel;
             return View(blog);
+        }
+
+        public ActionResult SearchBlog(string keySearchBlog, int? page)
+        {
+            int pageSize = 6;
+            int pageIndex = 1;
+            
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<Blog> prdPageList = null;
+            if (keySearchBlog == "")
+            {
+                var blogSearch = _blogService.GetBlogs();
+                prdPageList = blogSearch.ToPagedList(pageIndex, pageSize);
+            }
+            else
+            {
+                var blogSearch = _blogService.GetBlogs().Where(p => p.Title.Contains(keySearchBlog) || p.Description.Contains(keySearchBlog));
+                prdPageList = blogSearch.ToPagedList(pageIndex, pageSize);
+            }
+
+            ShopFormModel shopFormModel = new ShopFormModel();
+            shopFormModel.keySearchBlog = keySearchBlog;
+            shopFormModel.blogsRelated = _blogService.Get3BlogNewsNewest();
+            shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
+            shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("News").ToList());
+            ViewBag.shopFormModel = shopFormModel;
+            return View(prdPageList);
         }
 
         //public List<WebsiteAttribute> checkWebsiteAtribute(List<WebsiteAttribute> webSiteAtribute)

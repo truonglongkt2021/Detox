@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group button">
-                                        <button type="button" class="btn" onclick="sendContact()">Gửi</button>
+                                        <button type="button" id="btnSendContact" class="btn" onclick="sendContact()">Gửi</button>
                                     </div>
                                 </div>
                             </div>
@@ -108,8 +108,8 @@
 
 
         if (name.checkValidity() == true && email.checkValidity() == true && phone.checkValidity() == true && message.checkValidity() == true) {
-            console.log("validate all success")
-           
+
+            document.getElementById('btnSendContact').disabled = true;
             $.ajax({
                 type: "POST",
                 url: '/ShopContact/SendContact',
@@ -122,23 +122,25 @@
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function () {
-                    console.log("success");
+                    
                     name.value = "";
                     email.value = "";
                     phone.value = "";
                     message.value = "";
                     document.getElementById('notification').innerHTML = "Cảm ơn đã đóng góp ý kiến";
                     $('#exampleModal').show();
+                    document.getElementById('btnSendContact').disabled = false;
                 },
                 error: function () {
-                    console.log("fail");
+                    
                     document.getElementById('notification').innerHTML = "Gửi thông tin thất bại";
                     $('#exampleModal').show();
+                    document.getElementById('btnSendContact').disabled = false;
                 },
             });
         }
         else {
-            console.log("validate all fail")
+            
 
             if (name.checkValidity() == false) {
                 document.getElementById('notification').innerHTML = "Sai định dạng họ tên";
