@@ -52,52 +52,41 @@
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label no-padding-right" for="CustomerName">Tên Khách Hàng</label>
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.CustomerName, new { disabled = "disabled" })
+                                    <input disabled="disabled" name="CustomerName" type="text" value="@Model.CustomerName" style="width: 100%;">
                                 </div>
                             </div>
-                            @*<div class="form-group ">
-                                @Html.MyLabelFor(model => model.CustomerAddress)
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.CustomerAddress, new { disabled = "disabled" })
-                                </div>
-                            </div>*@
-                        <div class="form-group ">
-                            <label class="col-sm-3 control-label no-padding-right" for="CustomerName">Số Điện Thoại</label>
+                            <div class="form-group ">
+                                <label class="col-sm-3 control-label no-padding-right" for="CustomerName">Số Điện Thoại</label>
 
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.CustomerPhone, new { disabled = "disabled" })
-                            </div>
-                        </div>
-                            @*<div class="form-group ">
-                                @Html.MyLabelFor(model => model.CustomerEmail)
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.CustomerEmail, new { disabled = "disabled" })
-                                </div>
-                            </div>*@
-                        <div class="form-group ">
-                            <label class="col-sm-3 control-label no-padding-right" for="CustomerName">Tổng đơn hàng</label>
+                                    <input disabled="disabled" name="CustomerPhone" type="text" value="@Model.CustomerPhone" style="width: 100%;">
 
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.OrderTotal, new { disabled = "disabled" })
-                            </div>
-                        </div>
-                            @*<div class="form-group ">
-            @Html.MyLabelFor(model => model.Deleted)
-            <div class="col-sm-9">
-                <h6>
-                    @Html.EditorFor(model => model.Deleted)
-                    @Html.ValidationMessageFor(model => model.Deleted)
-                    Đã xóa
-                </h6>
-            </div>
-        </div>*@
-                            @*<div class="form-group ">
-                                @Html.MyLabelFor(model => model.Note)
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.Note, new { disabled = "disabled" })
-                                    @Html.ValidationMessageFor(model => model.Note)
                                 </div>
-                            </div>*@
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-sm-3 control-label no-padding-right" for="CustomerName">Địa chỉ giao hàng</label>
+
+                                <div class="col-sm-9">
+                                    <input disabled="disabled" name="CustomerAddress" type="text" value="@Model.CustomerAddress" style="width: 100%;">
+
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-sm-3 control-label no-padding-right" for="CustomerName">Tổng đơn hàng</label>
+
+                                <div class="col-sm-9">
+                                    <input disabled="disabled" name="OrderTotal" type="text" value="@Model.OrderTotal" style="width: 100%;">
+
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-sm-3 control-label no-padding-right" for="CustomerName">Thanh Toán</label>
+
+                                <div class="col-sm-9">
+                                    <input disabled="disabled" name="Status" type="text" value="@Model.Status" style="width: 100%;">
+
+                                </div>
+                            </div>
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label no-padding-right" for="OrderTotal">Chi tiết đơn hàng</label>
                                 <div class="col-sm-9">
@@ -115,14 +104,14 @@
                                         <tbody>
                                             @foreach (var item in Model.OrderItems)
                                             {
-                                            <tr>
-                                                <td>SP_@item.Id</td>
-                                                <td>@item.Product.Name</td>
-                                                <td>@item.AttributeName</td>
-                                                <td>@item.Quantity</td>
-                                                <td>@item.Price.ToString("#,##0")</td>
-                                                <td>@((item.Quantity*item.Price).ToString("#,##0"))</td>
-                                            </tr>
+                                                <tr>
+                                                    <td>SP_@item.Id</td>
+                                                    <td>@item.Product.Name</td>
+                                                    <td>@item.AttributeName</td>
+                                                    <td>@item.Quantity</td>
+                                                    <td>@item.Price.ToString("#,##0")</td>
+                                                    <td>@((item.Quantity*item.Price).ToString("#,##0"))</td>
+                                                </tr>
                                             }
                                         </tbody>
                                     </table>
