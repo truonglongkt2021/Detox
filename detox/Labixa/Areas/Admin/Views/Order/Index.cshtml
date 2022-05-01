@@ -56,11 +56,11 @@
                     @if (Model != null && Model.Any())
                     {
                         int count = 0;
-                        foreach (var item in Model)
+                        foreach (var item in Model.OrderByDescending(p=>p.Id))
                         {
                             count++;
                             <tr class="odd">
-                                <td class=" sorting_1">OD_@item.Id</td>
+                                <td class=" sorting_1">@item.Id</td>
                                 <td class="hidden-480 ">@item.CustomerName</td>
                                 @*<td class="hidden-480 ">@item.CustomerAddress</td>*@
                                 <td class="hidden-480 ">@item.CustomerPhone</td>

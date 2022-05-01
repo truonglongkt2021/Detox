@@ -206,7 +206,7 @@ namespace Labixa.Controllers
         //}
 
 
-        public ActionResult ThanhToanMomo(string phone, string address, string total, string email)
+        public ActionResult ThanhToanMomo(string customerName, string phone, string address, string total, string email)
         {
             var momorequest = new ModelMomoRequest();
             var ord = new Order();
@@ -219,6 +219,7 @@ namespace Labixa.Controllers
                 ord.CustomerAddress = address;
                 ord.CustomerPhone = phone;
                 ord.CustomerEmail = email;
+                ord.CustomerName = customerName;
                 //ord.ProfileId = _document.Id;//id tai lieu
                 ord.DateCreated = DateTime.Now;
                 ord.Deleted = false;
@@ -261,11 +262,44 @@ namespace Labixa.Controllers
 
             return Redirect(url);
         }
-        public ActionResult ThanhToanTrucTuyen(string phone, string address, string total, string email)
+        public ActionResult ThanhToanTrucTuyen(string customerName,string phone, string address, string total, string email)
         {
             ShopFormModel shopFormModel = new ShopFormModel();
             shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
             shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Home").ToList());
+            var ord = new Order();
+            List<Product> getCart = (List<Product>)Session["ShoppingCart"];
+
+
+            if (getCart != null)
+            {
+                ord.OrderTotal = int.Parse(total);
+                ord.CustomerAddress = address;
+                ord.CustomerPhone = phone;
+                ord.CustomerEmail = email;
+                ord.CustomerName = customerName;
+                //ord.ProfileId = _document.Id;//id tai lieu
+                ord.DateCreated = DateTime.Now;
+                ord.Deleted = false;
+                //ord.ProductName = _document.Name;
+                //ord.Product_Slug = slug;
+                ord.Status = "COD";
+                //ord.Note = _document.DescEng;
+                ord.RequestId = Guid.NewGuid().ToString();//ma don hang
+                //ord.Path_Download = _document.Tags;
+                ord = _orderService.CreateOrder(ord);
+
+            }
+
+            foreach (var item in getCart)
+            {
+                var orderItem = new OrderItem();
+                orderItem.OrderId = ord.Id;
+                orderItem.ProductId = item.Id;
+                orderItem.Quantity = item.Stock.GetValueOrDefault();
+                orderItem.Price = item.Price;
+                _orderItemService.CreateOrderItem(orderItem);
+            }
             foreach (var item in shopFormModel.websiteAttributes)
             {
                 if (item.Description == "title")
@@ -286,39 +320,39 @@ namespace Labixa.Controllers
                 }
             }
 
-            string mess = "";
-            MailFormModel mailFormModel = new MailFormModel();
-            mailFormModel.Messenger = "";
-            mailFormModel.Phone = phone;
-            mailFormModel.Name = "";
-            mailFormModel.Address = address;
-            try
-            {
-                MailMessage message = new MailMessage();
-                SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress("nhokthach007@gmail.com");
-                message.To.Add(new MailAddress(email));
-                message.Subject = "Detox - Thông báo xác nhận đặt hàng";
-                message.IsBodyHtml = true; //to make message body as html  
-                message.Body = ConvertViewToString("_PartialViewMail", mailFormModel);
+            //string mess = "";
+            //MailFormModel mailFormModel = new MailFormModel();
+            //mailFormModel.Messenger = "";
+            //mailFormModel.Phone = phone;
+            //mailFormModel.Name = "";
+            //mailFormModel.Address = address;
+            //try
+            //{
+            //    MailMessage message = new MailMessage();
+            //    SmtpClient smtp = new SmtpClient();
+            //    message.From = new MailAddress("nhokthach007@gmail.com");
+            //    message.To.Add(new MailAddress(email));
+            //    message.Subject = "Detox - Thông báo xác nhận đặt hàng";
+            //    message.IsBodyHtml = true; //to make message body as html  
+            //    message.Body = ConvertViewToString("_PartialViewMail", mailFormModel);
 
-                smtp.Port = 587;
-                smtp.Host = "smtp.gmail.com"; //for gmail host  
-                smtp.EnableSsl = true;
-                smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("nhokthach007@gmail.com", "0938707235");
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Send(message);
-                mess = "Đặt hàng thành công";
-                Session["ShoppingCart"] = new List<Product>();
-            }
-            catch (Exception e)
-            {
-                mess = "Đặt hàng thất bại do không thể gửi mail";
-            }
-            shopFormModel.Messenger = mess;
+            //    smtp.Port = 587;
+            //    smtp.Host = "smtp.gmail.com"; //for gmail host  
+            //    smtp.EnableSsl = true;
+            //    smtp.UseDefaultCredentials = false;
+            //    smtp.Credentials = new NetworkCredential("nhokthach007@gmail.com", "0938707235");
+            //    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //    smtp.Send(message);
+            //    mess = "Đặt hàng thành công";
+            //    Session["ShoppingCart"] = new List<Product>();
+            //}
+            //catch (Exception e)
+            //{
+            //    mess = "Đặt hàng thất bại do không thể gửi mail";
+            //}
+            //shopFormModel.Messenger = mess;
             ViewBag.shopFormModel = shopFormModel;
-            return View();
+            return View("RedirectMomo");
         }
 
         private string ConvertViewToString(string viewName, object model)
