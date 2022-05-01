@@ -1,5 +1,5 @@
-﻿@using Outsourcing.Data.Models
-@using Labixa.ViewModels
+﻿@using Outsourcing.Data.Models;
+@using Labixa.ViewModels;
 @model Outsourcing.Data.Models.Blog
 @{
     ViewBag.Title = "NewsDetail";
@@ -37,20 +37,20 @@
                                 </div>
                                 <div class="blog-detail">
                                     <h2 class="blog-title">@Model.Title</h2>
-                  
+
                                     <div class="content">
-                                       @Html.Raw(Model.Content)
+                                        @Html.Raw(Model.Content)
                                     </div>
                                 </div>
                             }
 
 
-   
+
+                        </div>
                     </div>
                 </div>
             </div>
-
-            @Html.Partial("_RightMenuPartial", shopFormModel.blogsRelated)
+            @Html.Partial("_RightMenuPartial", shopFormModel)
         </div>
     </div>
 </section>

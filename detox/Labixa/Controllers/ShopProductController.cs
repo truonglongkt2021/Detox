@@ -93,7 +93,10 @@ namespace Labixa.Controllers
             ViewBag.ShopFormModel = shopFormModel;
             return View(prdPageList);
         }
-
+        public ActionResult DetailProduct(string slug)
+        {
+            return View();
+        }
         public ActionResult Search(string key, int? page)
         {
             int pageSize = 4;
@@ -333,6 +336,11 @@ namespace Labixa.Controllers
         public ActionResult RedirectMomo(string partnerCode, string orderId, string requestId, string amount, string orderInfo, string orderType, string transId, string resultCode, string message,
                                             string payType, string responseTime, string extraData, string signature)
         {
+            ShopFormModel shopFormModel = new ShopFormModel();
+            shopFormModel.blogsHelper = _blogService.GetStaticPage().OrderBy(p => p.DateCreated);
+            shopFormModel.websiteAttributes = _shopController.checkWebsiteAtribute(_websiteAttributeService.GetWebsiteAttributesByType("Product").ToList());
+            ViewBag.ShopFormModel = shopFormModel;
+            //return View();
             var _signature = HMACMOMO_RESPONSE(amount, extraData, orderId, orderInfo, requestId, message, orderType, payType, responseTime, resultCode, transId);
             if (signature.Equals(_signature) && message.ToLower().Contains("successful"))
             {
